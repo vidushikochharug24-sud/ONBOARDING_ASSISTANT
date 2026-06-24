@@ -1,0 +1,123 @@
+﻿.sidebar {
+  background-color: var(--navy-light);
+  border-right: 1px solid var(--border-color);
+  padding: 20px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.new-analysis-button {
+  background-color: var(--cisco-blue);
+  color: var(--white);
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid var(--cisco-blue);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.new-analysis-button:hover {
+  background-color: var(--cisco-blue-hover);
+  border-color: var(--cisco-blue-hover);
+  box-shadow: 0 4px 12px rgba(0, 188, 235, 0.3);
+}
+
+.guides-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.guides-section h3 {
+  color: var(--text-light);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.guides-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.guide-item {
+  background-color: rgba(0, 188, 235, 0.05);
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 0;
+}
+
+.guide-item:hover {
+  border-color: var(--cisco-blue);
+  background-color: rgba(0, 188, 235, 0.1);
+  box-shadow: 0 0 12px rgba(0, 188, 235, 0.15);
+}
+
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.guide-name {
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  flex: 1;
+  word-break: break-word;
+  margin: 0;
+}
+
+.source-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-size: 11px;
+  color: var(--white);
+  white-space: nowrap;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.guide-date {
+  color: var(--text-light);
+  font-size: 12px;
+  margin: 0;
+}
+
+.sidebar-loading,
+.sidebar-empty {
+  color: var(--text-light);
+  font-size: 13px;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px;
+  }
+
+  .guides-section {
+    max-height: 300px;
+  }
+}

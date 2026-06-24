@@ -1,0 +1,9 @@
+flask
+flask-cors
+python-dotenv
+groq
+supabase
+pyjwt
+requests
+pdfplumber
+waitress
