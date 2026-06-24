@@ -6,4 +6,5 @@ supabase
 pyjwt
 requests
 pdfplumber
+sentence-transformers
 waitress
