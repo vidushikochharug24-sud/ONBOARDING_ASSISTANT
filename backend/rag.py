@@ -13,8 +13,8 @@ supabase = create_client(
 groq_client = Groq()
 MODEL = "llama-3.3-70b-versatile"
 
-HF_API_KEY = os.getenv("HF_API_KEY")
-HF_EMBEDDING_URL = "https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
+COHERE_API_KEY = os.getenv("COHERE_API_KEY")
+COHERE_EMBED_URL = "https://api.cohere.ai/v1/embed"
 
 CODE_EXTENSIONS = {
     ".py", ".js", ".jsx", ".ts", ".tsx", ".java", ".cpp", ".c",
@@ -26,17 +26,25 @@ def should_embed(filename):
     return any(filename.endswith(ext) for ext in CODE_EXTENSIONS)
 
 
-def get_embeddings(texts):
-    """Call HuggingFace API to get embeddings — no local model needed"""
-    headers = {"Authorization": f"Bearer {HF_API_KEY}"}
+def get_embeddings(texts, input_type="search_document"):
+    """Call Cohere API to get embeddings - 1024 dimensions"""
+    headers = {
+        "Authorization": f"Bearer {COHERE_API_KEY}",
+        "Content-Type": "application/json"
+    }
     response = requests.post(
-        HF_EMBEDDING_URL,
+        COHERE_EMBED_URL,
         headers=headers,
-        json={"inputs": texts, "options": {"wait_for_model": True}}
+        json={
+            "texts": texts,
+            "model": "embed-english-light-v3.0",
+            "input_type": input_type,
+            "truncate": "END"
+        }
     )
     if response.status_code != 200:
-        raise Exception(f"HF API error: {response.text}")
-    return response.json()
+        raise Exception(f"Cohere API error: {response.text}")
+    return response.json()["embeddings"]
 
 
 def chunk_text(text, filename, chunk_size=300):
@@ -113,30 +121,25 @@ def _store_chunks(workspace_id, guide_id, chunks):
     if not chunks:
         return
 
-    # Process in batches of 10 to avoid HF API limits
     batch_size = 10
     for i in range(0, len(chunks), batch_size):
         batch = chunks[i:i + batch_size]
         texts = [c["content"] for c in batch]
 
         try:
-            embeddings = get_embeddings(texts)
+            embeddings = get_embeddings(texts, input_type="search_document")
         except Exception as e:
             print(f"Embedding error: {e}")
             continue
 
         rows = []
         for j, chunk in enumerate(batch):
-            embedding = embeddings[j]
-            # HF returns nested list for some models, flatten if needed
-            if isinstance(embedding[0], list):
-                embedding = embedding[0]
             rows.append({
                 "workspace_id": workspace_id,
                 "guide_id": guide_id,
                 "file_path": chunk["file_path"],
                 "content": chunk["content"],
-                "embedding": embedding
+                "embedding": embeddings[j]
             })
 
         try:
@@ -146,9 +149,7 @@ def _store_chunks(workspace_id, guide_id, chunks):
 
 
 def search_chunks(workspace_id, guide_id, question, top_k=3):
-    question_embedding = get_embeddings([question])[0]
-    if isinstance(question_embedding[0], list):
-        question_embedding = question_embedding[0]
+    question_embedding = get_embeddings([question], input_type="search_query")[0]
 
     result = supabase.rpc("match_code_chunks", {
         "query_embedding": question_embedding,
@@ -175,14 +176,14 @@ def chat_with_codebase(workspace_id, guide_id, question, conversation_history):
 Answer questions based on the actual code provided below.
 Be specific, reference actual file names and code when relevant.
 If the code context doesn't contain the answer, say so honestly.
-Keep answers concise — 3-5 sentences max.
+Keep answers concise - 3-5 sentences max.
 
 RELEVANT CODE CONTEXT:
 {context}
 """
 
     messages = [{"role": "system", "content": system_prompt}]
-    messages.extend(conversation_history[-4:])  # last 4 messages only to save tokens
+    messages.extend(conversation_history[-4:])
     messages.append({"role": "user", "content": question})
 
     response = groq_client.chat.completions.create(
