@@ -27,6 +27,11 @@ export default function Landing() {
 
       <main className="dl-main">
         <section className="dl-hero">
+          <video className="dl-hero-video" autoPlay muted loop playsInline playsInline="true">
+            <source src="/hero-video.mp4" type="video/mp4" />
+            <source src="https://videos.pexels.com/video-files/3130284/3130284-uhd_2560_1440_30fps.mp4" type="video/mp4" />
+          </video>
+          <div className="video-overlay" />
           <div className="dl-hero-inner">
             <div className="dl-hero-left">
               <div className="dl-badge">AI-Assisted Onboarding</div>

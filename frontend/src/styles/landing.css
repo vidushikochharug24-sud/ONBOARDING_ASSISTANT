@@ -63,8 +63,10 @@
 
 .dl-main{ max-width:1200px; margin:36px auto; width:100%; padding:0 20px; flex:1 }
 
-.dl-hero{ background:transparent; padding:36px 0 }
-.dl-hero-inner{ display:flex; gap:28px; align-items:center; justify-content:space-between }
+.dl-hero{ background:transparent; padding:36px 0; position:relative; overflow:hidden; min-height:420px }
+.dl-hero-video{ position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:0; pointer-events:none }
+.video-overlay{ position:absolute; inset:0; background:rgba(0,0,0,0.75); z-index:1 }
+.dl-hero-inner{ display:flex; gap:28px; align-items:center; justify-content:space-between; position:relative; z-index:2 }
 .dl-hero-left{ flex:1; max-width:640px }
 .dl-hero-right{ width:420px }
 
