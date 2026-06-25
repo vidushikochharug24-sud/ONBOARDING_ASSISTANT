@@ -45,8 +45,10 @@ export default function Login() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>Login</h1>
-        <p className="auth-subtitle">Onboarding Assistant</p>
+        <div className="auth-top">
+          <div className="auth-logo">DevLens</div>
+          <p className="auth-tag">Welcome back</p>
+        </div>
 
         {error && <div className="error-message">{error}</div>}
 
@@ -78,12 +80,11 @@ export default function Login() {
           </div>
 
           <button type="submit" className="submit-button">
-            Login
+            Sign In
           </button>
         </form>
-
         <p className="auth-link">
-          Don't have an account? <Link to="/signup">Sign up</Link>
+          Don't have an account? <Link to="/signup">Get Started</Link>
         </p>
       </div>
     </div>

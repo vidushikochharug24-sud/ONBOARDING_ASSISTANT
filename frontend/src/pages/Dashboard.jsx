@@ -65,7 +65,7 @@ export default function Dashboard() {
     <div className="dashboard">
       <header className="dashboard-header">
         <div className="header-left">
-          <h1>Onboarding Assistant</h1>
+          <div className="dl-logo">DevLens</div>
         </div>
         <div className="header-right">
           <span className="user-info">{email}</span>

@@ -49,8 +49,10 @@ export default function Signup() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>Sign Up</h1>
-        <p className="auth-subtitle">Onboarding Assistant</p>
+        <div className="auth-top">
+          <div className="auth-logo">DevLens</div>
+          <p className="auth-tag">Start onboarding faster</p>
+        </div>
 
         {error && <div className="error-message">{error}</div>}
 
@@ -95,13 +97,18 @@ export default function Signup() {
           </div>
 
           <button type="submit" className="submit-button">
-            Sign Up
+            Create Account
           </button>
         </form>
 
         <p className="auth-link">
-          Already have an account? <Link to="/login">Login</Link>
+          Already have an account? <Link to="/login">Sign In</Link>
         </p>
+        <div className="signup-trust">
+          <span>✓ Free forever</span>
+          <span>✓ No credit card</span>
+          <span>✓ Setup in minutes</span>
+        </div>
       </div>
     </div>
   );

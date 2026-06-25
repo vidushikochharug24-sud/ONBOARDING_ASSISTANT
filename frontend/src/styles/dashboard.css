@@ -1,76 +1,17 @@
-﻿.dashboard {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: var(--navy-dark);
-}
+﻿
+.dashboard{ display:flex; flex-direction:column; height:100vh; background:var(--bg-hero) }
 
-.dashboard-header {
-  background-color: var(--navy-dark);
-  border-bottom: 1px solid var(--border-color);
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 60px;
-}
+.dashboard-header{ background:var(--bg-hero); border-bottom:1px solid var(--card-border); padding:14px 24px; display:flex; align-items:center; justify-content:space-between; position:fixed; top:0; left:0; right:0; height:64px; z-index:40 }
+.header-left .dl-logo{ color:var(--heading); font-weight:700 }
+.header-right{ display:flex; gap:12px; align-items:center }
+.user-info{ color:#bdbdbd; font-size:14px }
+.logout-button{ background:transparent; color:var(--heading); border:1px solid rgba(255,255,255,0.08); padding:6px 12px; border-radius:8px; cursor:pointer }
 
-.header-left h1 {
-  color: var(--cisco-blue);
-  font-size: 20px;
-  margin: 0;
-  font-weight: 600;
-}
+.dashboard-container{ display:flex; flex:1; margin-top:64px; height:calc(100vh - 64px); overflow:hidden }
 
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
+.dashboard-sidebar{ width:260px; background:var(--bg-section); border-right:1px solid var(--card-border); padding:18px; overflow:auto }
 
-.user-info {
-  color: var(--text-light);
-  font-size: 14px;
-  padding: 6px 12px;
-  background-color: rgba(0, 188, 235, 0.1);
-  border: 1px solid var(--border-color);
-  border-radius: 2px;
-}
-
-.logout-button {
-  background-color: transparent;
-  color: var(--text-light);
-  border: 1px solid var(--border-color);
-  padding: 6px 16px;
-  font-size: 13px;
-  border-radius: 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.logout-button:hover {
-  background-color: var(--error-red);
-  border-color: var(--error-red);
-  color: var(--white);
-}
-
-.dashboard-container {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-}
-
-.dashboard-sidebar {
-  width: 280px;
-  overflow: hidden;
-}
-
-.dashboard-main {
-  flex: 1;
-  overflow-y: auto;
-  padding: 30px;
-  background: linear-gradient(135deg, var(--navy-main) 0%, var(--navy-dark) 100%);
-}
+.dashboard-main{ flex:1; background:var(--bg-hero); padding:28px; overflow:auto }
 
 .guide-workspace {
   display: flex;
@@ -79,26 +20,42 @@
 }
 
 @media (max-width: 1024px) {
-  .dashboard-sidebar {
-    width: 240px;
-  }
-
-  .dashboard-main {
-    padding: 20px;
-  }
+  .dashboard-sidebar{ width:220px }
+  .dashboard-main{ padding:20px }
 }
 
 @media (max-width: 768px) {
-  .dashboard-container {
-    flex-direction: column;
-  }
-
-  .dashboard-sidebar {
-    width: 100%;
-    height: auto;
-  }
-
-  .dashboard-main {
-    padding: 15px;
-  }
+  .dashboard-container{ flex-direction:column }
+  .dashboard-sidebar{ width:100%; height:auto }
+  .dashboard-main{ padding:15px }
 }
+
+/* Sidebar overrides to match design - target existing .sidebar component */
+.dashboard-sidebar .sidebar{ background:transparent; padding:0 }
+.dashboard-sidebar .new-analysis-button{ width:100%; background:var(--heading); color:var(--primary-text); padding:10px; border-radius:8px; border:0; font-weight:700; cursor:pointer }
+.dashboard-sidebar .guides-section{ margin-top:16px }
+.dashboard-sidebar .guides-section h3{ color:var(--body); font-size:12px; text-transform:uppercase; letter-spacing:0.8px }
+.dashboard-sidebar .guides-list{ margin-top:10px; display:flex; flex-direction:column; gap:8px }
+.dashboard-sidebar .guide-item{ padding:10px; border-radius:8px; cursor:pointer; background:transparent }
+.dashboard-sidebar .guide-item:hover{ background:var(--card) }
+.dashboard-sidebar .guide-item.active, .dashboard-sidebar .guide-item[aria-current='true']{ background:#1a1a1a; border-left:4px solid var(--accent); padding-left:8px }
+.dashboard-sidebar .guide-header{ display:flex; justify-content:space-between; align-items:center }
+.dashboard-sidebar .guide-name{ color:var(--heading); margin:0; font-size:14px }
+.dashboard-sidebar .source-badge{ font-size:11px; padding:4px 8px; border-radius:6px; background:#1a1a1a; color:var(--accent); text-transform:uppercase }
+.dashboard-sidebar .guide-date{ color:var(--body); font-size:12px; margin:6px 0 0 }
+
+/* Guide workspace styling */
+.guide-workspace{ display:flex; flex-direction:column; gap:18px }
+.guide-workspace .guide-display, .guide-workspace .codebase-chat{ background:var(--bg-section); border:1px solid var(--card-border); padding:18px; border-radius:12px }
+
+/* NewAnalysisForm tabs */
+.new-analysis-tabs{ display:flex; gap:12px; margin-bottom:12px }
+.new-analysis-tabs .tab{ padding:8px 12px; color:var(--body); cursor:pointer }
+.new-analysis-tabs .tab.active{ color:var(--heading); border-bottom:2px solid var(--accent) }
+
+/* Form inputs */
+.new-analysis-form input, .new-analysis-form textarea{ background:var(--card); border:1px solid var(--card-border); color:var(--heading); border-radius:8px; padding:10px }
+.new-analysis-form input:focus, .new-analysis-form textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(0,188,235,0.06) }
+
+/* Empty state */
+.dashboard-empty{ height:60vh; display:flex; align-items:center; justify-content:center; color:var(--body); font-size:18px }

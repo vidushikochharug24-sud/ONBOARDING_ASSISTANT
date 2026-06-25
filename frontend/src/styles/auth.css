@@ -3,31 +3,22 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-main) 100%);
+  background: var(--bg-hero);
   padding: 20px;
 }
 
 .auth-card {
-  background-color: var(--navy-light);
-  border: 1px solid var(--border-color);
-  padding: 40px;
+  background-color: var(--bg-section);
+  border: 1px solid var(--card-border);
+  padding: 32px;
   width: 100%;
   max-width: 400px;
-  border-radius: 0;
+  border-radius: 12px;
 }
 
-.auth-card h1 {
-  color: var(--white);
-  font-size: 28px;
-  margin-bottom: 5px;
-  font-weight: 600;
-}
-
-.auth-subtitle {
-  color: var(--cisco-blue);
-  font-size: 14px;
-  margin-bottom: 30px;
-}
+.auth-top{ text-align:center; margin-bottom:8px }
+.auth-logo{ color:var(--heading); font-weight:700; font-size:20px }
+.auth-tag{ color:var(--body); margin-top:6px }
 
 .form-group {
   margin-bottom: 20px;
@@ -44,12 +35,12 @@
 .form-group input {
   width: 100%;
   padding: 10px 12px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-color);
-  color: var(--text-light);
+  background-color: var(--card);
+  border: 1px solid var(--card-border);
+  color: var(--heading);
   font-size: 14px;
-  border-radius: 0;
-  transition: all 0.2s ease;
+  border-radius: 8px;
+  transition: all 0.15s ease;
 }
 
 .form-group input::placeholder {
@@ -58,30 +49,26 @@
 
 .form-group input:focus {
   outline: none;
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: var(--cisco-blue);
-  box-shadow: 0 0 0 3px rgba(0, 188, 235, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(0, 188, 235, 0.06);
 }
+
 
 .submit-button {
   width: 100%;
   padding: 12px;
-  background-color: var(--cisco-blue);
-  color: var(--white);
+  background-color: var(--heading);
+  color: var(--primary-text);
   font-size: 15px;
   font-weight: 600;
-  border: 2px solid var(--cisco-blue);
-  border-radius: 0;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.12s ease;
   margin-top: 10px;
 }
 
-.submit-button:hover {
-  background-color: var(--cisco-blue-hover);
-  border-color: var(--cisco-blue-hover);
-  box-shadow: 0 4px 12px rgba(0, 188, 235, 0.3);
-}
+.submit-button:hover{ transform: translateY(-2px) }
 
 .submit-button:active {
   transform: scale(0.98);
@@ -94,15 +81,10 @@
   font-size: 14px;
 }
 
-.auth-link a {
-  color: var(--cisco-blue);
-  text-decoration: none;
-}
+.auth-link a { color: var(--accent); text-decoration:none }
+.auth-link a:hover{ text-decoration:underline }
 
-.auth-link a:hover {
-  color: var(--cisco-blue-hover);
-  text-decoration: underline;
-}
+.signup-trust{ display:flex; gap:12px; justify-content:center; color:var(--body); margin-top:12px; font-size:13px }
 
 @media (max-width: 480px) {
   .auth-card {
