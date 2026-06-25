@@ -7,8 +7,8 @@ load_dotenv()
 
 from auth import auth_bp
 from analyze import analyze_bp
-from chat import chat_bp
 from storage import storage_bp
+from chat import chat_bp
 
 app = Flask(__name__)
 CORS(app)
@@ -17,8 +17,8 @@ app.config["JWT_SECRET"] = os.getenv("JWT_SECRET")
 
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
 app.register_blueprint(analyze_bp, url_prefix="/api/analyze")
-app.register_blueprint(chat_bp, url_prefix="/api/chat")
 app.register_blueprint(storage_bp, url_prefix="/api/storage")
+app.register_blueprint(chat_bp, url_prefix="/api/chat")
 
 @app.route("/")
 def home():
