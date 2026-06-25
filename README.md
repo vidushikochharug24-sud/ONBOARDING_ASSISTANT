@@ -3,7 +3,7 @@
 An AI-powered developer tool that automatically generates comprehensive onboarding guides for any codebase — eliminating the 2-3 week ramp-up time new engineers face when joining a team.
 
 ## 🚀 Live Demo
-> [Add your Vercel link here after deployment]
+> https://onboarding-assistant-roan.vercel.app/
 
 ## 💡 The Problem
 New engineers waste weeks understanding a codebase, constantly interrupting senior developers. Existing tools like GitHub's README or Confluence docs are either too shallow or manually maintained. No tool automatically reads your actual code and generates a structured guide for new joiners.
@@ -91,31 +91,6 @@ ONBOARDING_ASSISTANT/
 - [Groq API key](https://console.groq.com) (free)
 - [Supabase](https://supabase.com) project (free)
 
-### Backend Setup
-```bash
-cd backend
-pip install -r requirements.txt
-
-# Create .env file
-GROQ_API_KEY=your_groq_key
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_SERVICE_KEY=your_service_role_key
-JWT_SECRET=your_random_secret
-
-python app.py
-```
-
-### Frontend Setup
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Open `http://localhost:5173`
-
-### Supabase Setup
-Run the SQL in `backend/schema.sql` in your Supabase SQL editor to create all required tables including pgvector support.
 
 ## 🔐 Authentication Flow
 
@@ -125,17 +100,8 @@ Run the SQL in `backend/schema.sql` in your Supabase SQL editor to create all re
 4. JWT tokens expire after 7 days
 5. All guides and files are workspace-isolated
 
-## 📸 Screenshots
 
-> Add screenshots here
 
-## 🔮 Roadmap
-
-- [ ] Team member invite system
-- [ ] Guide versioning — track how codebase changes over time
-- [ ] Slack/Notion integration — export guides directly
-- [ ] Private GitHub repo support via OAuth
-- [ ] Voice Q&A — ask questions about the codebase verbally
 
 ## 👩‍💻 Author
 
