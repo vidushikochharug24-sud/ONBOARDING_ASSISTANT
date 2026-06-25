@@ -5,6 +5,7 @@ import requests
 import base64
 import zipfile
 import io
+import uuid
 
 # Use Hugging Face Inference API for embeddings to avoid local heavy models
 # Requires env var HUGGINGFACE_TOKEN (or HF_TOKEN). Model: sentence-transformers/all-MiniLM-L6-v2
@@ -80,7 +81,10 @@ def embed_and_store_github(workspace_id, guide_id, repo_url):
         except Exception:
             continue
 
-    _store_chunks(workspace_id, guide_id, all_chunks)
+    try:
+        _store_chunks(workspace_id, guide_id, all_chunks)
+    except Exception as e:
+        print(f"embed_and_store_github: failed to store chunks: {e}")
     return True
 
 
@@ -100,7 +104,10 @@ def embed_and_store_zip(workspace_id, guide_id, file_path):
         except Exception:
             continue
 
-    _store_chunks(workspace_id, guide_id, all_chunks)
+    try:
+        _store_chunks(workspace_id, guide_id, all_chunks)
+    except Exception as e:
+        print(f"embed_and_store_zip: failed to store chunks: {e}")
     return True
 
 
@@ -133,12 +140,23 @@ def search_chunks(workspace_id, guide_id, question, top_k=3):
     question_embedding = _hf_embed_batch([question])[0]
 
     # Use Supabase RPC for vector similarity search
-    result = supabase.rpc("match_code_chunks", {
+    # Ensure guide_id is a valid UUID; if not, pass null to RPC so it doesn't filter by guide
+    match_guide_id = None
+    try:
+        if guide_id:
+            # If guide_id already a UUID string or object, this will validate it
+            match_guide_id = str(uuid.UUID(str(guide_id)))
+    except Exception:
+        match_guide_id = None
+
+    payload = {
         "query_embedding": question_embedding,
         "match_workspace_id": workspace_id,
-        "match_guide_id": guide_id,
+        "match_guide_id": match_guide_id,
         "match_count": top_k
-    }).execute()
+    }
+
+    result = supabase.rpc("match_code_chunks", payload).execute()
 
     return result.data or []
 
@@ -240,5 +258,3 @@ def _hf_embed_batch(texts):
         embeddings.append(vec)
 
     return embeddings
-
-    return response.choices[0].message.content
